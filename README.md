@@ -1,6 +1,6 @@
 # Fitness-Tracker
 
-This is just a stub README for now. Will add more info soon...
+*This is just a stub README for now. Will add more info soon...*
 
-Names:
-Adam Gr.
+**Names:**
+* Adam Gr.
