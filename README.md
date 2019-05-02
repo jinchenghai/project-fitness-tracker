@@ -6,4 +6,3 @@
 * Adam Gr.
 * Jin
 * Azamat
-* Testing the SourceTree
