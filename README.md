@@ -13,7 +13,7 @@
 * Resouces: [References]
 
 ### Developers:
-* [Adam Gruszczynski] (https://github.com/agrusz1 "Adam Gruszczynski's Github")
+* [Adam Gruszczynski](https://github.com/agrusz1 "Adam Gruszczynski's Github")
 * Azamat Abdikadirov
 * Jin Chenghai
 
