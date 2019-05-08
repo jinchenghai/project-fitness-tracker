@@ -40,4 +40,13 @@
 			</plugin>
 		</plugins>
 	</build>
+	<scm>
+		<url>https://github.com/depaulcdm/project-fitness-tracker</url>
+		<developerConnection>scm:git:git@github.com:depaulcdm/project-fitness-tracker.git</developerConnection>
+		<connection>scm:git:git@github.com:depaulcdm/project-fitness-tracker.git</connection>
+	</scm>
+	<organization>
+		<name>DePaul CDM</name>
+		<url>www.cdm.depaul.edu</url>
+	</organization>
 </project>
