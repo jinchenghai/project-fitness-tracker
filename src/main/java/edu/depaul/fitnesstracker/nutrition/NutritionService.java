@@ -33,4 +33,9 @@ public class NutritionService {
 			}
 		}
 	}
+
+	public void deleteNutrition(int id) {
+		nutritionEntries.removeIf( n -> n.getNutritionID() == id);
+		
+	}
 }
