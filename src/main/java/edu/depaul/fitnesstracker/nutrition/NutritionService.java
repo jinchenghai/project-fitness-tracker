@@ -25,4 +25,12 @@ public class NutritionService {
 	public void addNutrition(Nutrition nutrition) {
 		nutritionEntries.add(nutrition);
 	}
+	
+	public void updateNutrition(int id, Nutrition nutrition) {
+		for (Nutrition nutritionEntry  : nutritionEntries) {
+			if (nutritionEntry.getNutritionID() == id) {
+				nutritionEntries.set(nutritionEntries.indexOf(nutritionEntry), nutrition);
+			}
+		}
+	}
 }
