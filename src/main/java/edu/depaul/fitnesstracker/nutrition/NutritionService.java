@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class NutritionService {
+	
+	@Autowired
+	private NutritionRepository nutritionRepository;
 	
 	private List<Nutrition> nutritionEntries = new ArrayList<>(Arrays.asList(
 			new Nutrition(1,"Nutrition 1", 2, 3, 4, 5),
@@ -15,6 +19,10 @@ public class NutritionService {
 			));
 	
 	public List<Nutrition> getAllNutritionEntries(){
+		List<Nutrition> nutritionEntries = new ArrayList<>(); 
+		
+		nutritionRepository.findAll().forEach(nutritionEntries::add);
+		
 		return nutritionEntries;
 	}
 	
@@ -23,7 +31,7 @@ public class NutritionService {
 	}
 
 	public void addNutrition(Nutrition nutrition) {
-		nutritionEntries.add(nutrition);
+		nutritionRepository.save(nutrition);
 	}
 	
 	public void updateNutrition(int id, Nutrition nutrition) {
