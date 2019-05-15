@@ -1,7 +1,12 @@
 package edu.depaul.fitnesstracker.nutrition;
 
-public class Nutrition {
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
+public class Nutrition {
+	
+	@Id
 	private int nutritionID;
 	private String nutritionName;
 	private int calorieValue;
