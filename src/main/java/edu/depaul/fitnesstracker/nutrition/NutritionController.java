@@ -18,7 +18,7 @@ public class NutritionController {
 	private NutritionService nutritionService;
 	
 	@GetMapping("/nutritions")
-	public List<Nutrition> getNutritionEntries() {
+	public List<Nutrition> getAllNutritionEntries() {
 		return nutritionService.getAllNutritionEntries();
 	}
 	
@@ -28,13 +28,13 @@ public class NutritionController {
 	}
 	
 	@PostMapping("/nutritions")
-	public void addTopic(@RequestBody Nutrition nutrition) {
-		nutritionService.addNutrition(nutrition);
+	public void addNutritionEntries(@RequestBody List<Nutrition> nutritionList) {
+		nutritionService.addNutritionEntries(nutritionList);
 	}
 	
 	@PutMapping("/nutritions/{id}")
-	public void updateNutrition( @PathVariable int id, @RequestBody Nutrition nutrition) {
-		nutritionService.updateNutrition(id, nutrition);
+	public void updateNutrition(@RequestBody List<Nutrition> nutritionList) {
+		nutritionService.updateNutrition(nutritionList);
 	}
 	
 	@DeleteMapping("/nutritions/{id}")
