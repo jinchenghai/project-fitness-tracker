@@ -64,7 +64,13 @@ public class Nutrition {
 	 * @param nutritionID the nutritionID to set
 	 */
 	public void setNutritionID(int nutritionID) {
-		this.nutritionID = nutritionID;
+		if (nutritionID <= 0) {
+			throw new IllegalArgumentException("ERROR: Nutrition ID (" + this.nutritionID + ") must be greater than 0");
+		}
+		else {
+			this.nutritionID = nutritionID;
+		}
+		
 	}
 
 	/**
@@ -78,7 +84,13 @@ public class Nutrition {
 	 * @param nutritionName the nutritionName to set
 	 */
 	public void setNutritionName(String nutritionName) {
-		this.nutritionName = nutritionName;
+		if (nutritionName == null || nutritionName.trim().equals("")) {
+			throw new IllegalArgumentException("ERROR: Nutrition Name (\"" + this.nutritionName + "\") cannot be empty "
+					+ "or null"); 
+		}
+		else{
+			this.nutritionName = nutritionName;
+		}
 	}
 
 	/**
@@ -92,7 +104,13 @@ public class Nutrition {
 	 * @param calorieValue the calorieValue to set
 	 */
 	public void setCalorieValue(int calorieValue) {
-		this.calorieValue = calorieValue;
+		if (calorieValue <= 0) {
+			throw new IllegalArgumentException("ERROR: Nutrition Calorie (" + this.calorieValue + ") must be greater "
+					+ "than 0");
+		}
+		else {
+			this.calorieValue = calorieValue;
+		}
 	}
 
 	/**
@@ -106,7 +124,13 @@ public class Nutrition {
 	 * @param proteinValue the proteinValue to set
 	 */
 	public void setProteinValue(int proteinValue) {
-		this.proteinValue = proteinValue;
+		if (proteinValue <= 0) {
+			throw new IllegalArgumentException("ERROR: Nutrition Protein (" + this.proteinValue + ") must be greater "
+					+ "than 0");
+		}
+		else {
+			this.proteinValue = proteinValue;
+		}
 	}
 
 	/**
@@ -120,7 +144,13 @@ public class Nutrition {
 	 * @param carbohydrateValue the carbohydrateValue to set
 	 */
 	public void setCarbohydrateValue(int carbohydrateValue) {
-		this.carbohydrateValue = carbohydrateValue;
+		if (carbohydrateValue <= 0) {
+			throw new IllegalArgumentException("ERROR: Nutrition Carbohydrate (" + this.carbohydrateValue + ") must be "
+					+ "greater than 0");
+		}
+		else {
+			this.carbohydrateValue = carbohydrateValue;
+		}
 	}
 
 	/**
@@ -134,7 +164,13 @@ public class Nutrition {
 	 * @param fatValue the fatValue to set
 	 */
 	public void setFatValue(int fatValue) {
-		this.fatValue = fatValue;
+		if (fatValue <= 0) {
+			throw new IllegalArgumentException("ERROR: Nutrition Fat (" + this.fatValue + ") must be "
+					+ "greater than 0");
+		}
+		else {
+			this.fatValue = fatValue;
+		}
 	}
 	
 	
