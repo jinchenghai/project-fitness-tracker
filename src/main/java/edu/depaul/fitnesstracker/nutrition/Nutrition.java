@@ -18,8 +18,32 @@ public class Nutrition {
 		
 	}
 
-	public Nutrition(int nutritionID,String nutritionName, int calorieValue,
-			int proteinValue,int carbohydrateValue,int fatValue) {
+	public Nutrition(int nutritionID,String nutritionName, int calorieValue,int proteinValue,int carbohydrateValue,
+		int fatValue) {
+		//Check for valid Nutrition Parameters before constructing
+		if (nutritionID <= 0) {
+			throw new IllegalArgumentException("ERROR: Nutrition ID (" + this.nutritionID + ") must be greater than 0"); 
+		}
+		else if (nutritionName == null || nutritionName.trim().equals("")) {
+			throw new IllegalArgumentException("ERROR: Nutrition Name (\"" + this.nutritionName + "\") cannot be empty "
+					+ "or null"); 
+		}
+		else if (calorieValue <= 0) {
+			throw new IllegalArgumentException("ERROR: Nutrition Calorie (" + this.calorieValue + ") must be greater "
+					+ "than 0");
+		}
+		else if (proteinValue <= 0) {
+			throw new IllegalArgumentException("ERROR: Nutrition Protein (" + this.proteinValue + ") must be greater "
+					+ "than 0");
+		}
+		else if (carbohydrateValue <= 0) {
+			throw new IllegalArgumentException("ERROR: Nutrition Carbohydrate (" + this.carbohydrateValue + ") must be "
+					+ "greater than 0");
+		}
+		else if (fatValue <= 0) {
+			throw new IllegalArgumentException("ERROR: Nutrition Fat (" + this.fatValue + ") must be "
+					+ "greater than 0");
+		}
 		
 		this.nutritionID = nutritionID;
 		this.nutritionName = nutritionName;
