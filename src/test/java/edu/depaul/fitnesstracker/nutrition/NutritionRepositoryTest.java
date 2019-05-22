@@ -2,7 +2,6 @@ package edu.depaul.fitnesstracker.nutrition;
 
 import static org.junit.Assert.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +19,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class NutritionRepositoryTest  {
 	List<Nutrition> dummyNutritionEntries;
-	List<Nutrition> testList = new ArrayList<>();
 	
 	@Autowired
 	private NutritionRepository testNutritionRepository;
@@ -35,7 +33,6 @@ public class NutritionRepositoryTest  {
 		for (Nutrition nutritionEntry : dummyNutritionEntries) {
 			testNutritionRepository.save(nutritionEntry);
 		}
-		
 	}
 	
 	@After
