@@ -23,11 +23,14 @@ public class NutritionService {
 	
 	public List<Nutrition> getNutritionEntries(List<Integer> nutritionIDList) {
 		List<Nutrition> nutritionEntries = new ArrayList<>(); 
+		if (nutritionIDList.size() < 2) {
+			nutritionEntries.add(nutritionRepository.findOne(nutritionIDList.get(0)));
+		}
+		else {
+			nutritionRepository.findAll(nutritionIDList).forEach(nutritionEntries::add);
+		}
 		
-		nutritionRepository.findAll(nutritionIDList).forEach(nutritionEntries::add);
-		
-		return nutritionEntries;
-		
+		return nutritionEntries;	
 	}
 	
 	public void addNutritionEntries(List<Nutrition> nutritionList) {
@@ -39,11 +42,12 @@ public class NutritionService {
 			nutritionRepository.save(nutrition);
 		}
 	}
-
+	
 	public void deleteNutritionEntries(List<Integer> nutritionIDList) {
 		for (int nutritonID : nutritionIDList) {
-			nutritionRepository.delete(nutritonID);
-		}
+			if (nutritionRepository.exists(nutritonID))
+				nutritionRepository.delete(nutritonID);
+		}	
 	}
 	
 	public void deleteAllNutritionEntries() {
