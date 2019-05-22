@@ -173,6 +173,16 @@ public class Nutrition {
 		}
 	}
 	
+	@Override
+	public String toString() {
+		String toString;
+		
+		toString = "{Nutrition ID: " + this.nutritionID + ", Nutrition Name: " + this.nutritionName + 
+				", Calorie Value: " + this.calorieValue + ", Protein Value: " + this.proteinValue +
+				", Carbohydrate Value: " + this.carbohydrateValue + ", Fat Value: " + this.fatValue + "}";
+		
+		return toString;
+	}
 	
 	
 }
