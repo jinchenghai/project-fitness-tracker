@@ -23,34 +23,63 @@ public class NutritionService {
 	
 	public List<Nutrition> getNutritionEntries(List<Integer> nutritionIDList) {
 		List<Nutrition> nutritionEntries = new ArrayList<>(); 
-		if (nutritionIDList.size() < 2) {
-			nutritionEntries.add(nutritionRepository.findOne(nutritionIDList.get(0)));
-		}
-		else {
+		//ERROR: Should not be empty list, dont compute and return empty list
+		if (nutritionIDList.size() == 0)
+			return nutritionEntries;
+		else
 			nutritionRepository.findAll(nutritionIDList).forEach(nutritionEntries::add);
-		}
 		
 		return nutritionEntries;	
 	}
 	
-	public void addNutritionEntries(List<Nutrition> nutritionList) {
+	public List<Nutrition> addNutritionEntries(List<Nutrition> nutritionList) {
+		List<Nutrition> nutritionEntries = new ArrayList<>(); 
 		nutritionRepository.save(nutritionList);
+		
+		for (Nutrition nutrition : nutritionList)
+			nutritionEntries.add(nutritionRepository.findOne(nutrition.getNutritionID()));
+		
+		return nutritionEntries;
 	}
 	
-	public void updateNutritionEntries(List<Nutrition> nutritionList) {
+	public List<Nutrition> updateNutritionEntries(List<Nutrition> nutritionList) {
+		List<Nutrition> nutritionEntries = new ArrayList<>(); 
+		
 		for (Nutrition nutrition : nutritionList) {
-			nutritionRepository.save(nutrition);
+			if (nutritionRepository.exists(nutrition.getNutritionID())) {
+				nutritionRepository.save(nutrition);
+				nutritionEntries.add(nutritionRepository.findOne(nutrition.getNutritionID()));
+			}
 		}
+		
+		return nutritionEntries;
 	}
 	
-	public void deleteNutritionEntries(List<Integer> nutritionIDList) {
-		for (int nutritonID : nutritionIDList) {
-			if (nutritionRepository.exists(nutritonID))
-				nutritionRepository.delete(nutritonID);
+	public List<Nutrition> deleteNutritionEntries(List<Integer> nutritionIDList) {
+		List<Nutrition> nutritionEntries = new ArrayList<>();
+		Nutrition nutrition = new Nutrition();
+		
+		for (int nutritionId : nutritionIDList) {
+			//CHECK: If it exists in repo, then find and delete it
+			if (nutritionRepository.exists(nutritionId)) {
+				nutrition = nutritionRepository.findOne(nutritionId);
+				nutritionRepository.delete(nutritionId);
+				
+				//VALIDATE: That entry was actually deleted
+				if (!nutritionRepository.exists(nutritionId)) {
+					nutritionEntries.add(nutrition);
+				}
+			}
 		}	
+		
+		return nutritionEntries;
 	}
 	
-	public void deleteAllNutritionEntries() {
+	public boolean deleteAllNutritionEntries() {
 		nutritionRepository.deleteAll();
+		if (nutritionRepository.count() > 0) {
+			return false;
+		}
+		return true;
 	}
 }
