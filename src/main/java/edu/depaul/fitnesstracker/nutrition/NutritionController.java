@@ -91,10 +91,15 @@ public class NutritionController {
 		}
 		//VALIDATE:  Check to see if ALL entries were updated, change status to BAD_REUEST if not all were updated
 		else {
-			for (int i = 0; i < nutritionList.size(); i++) {
-				if (!nutritionEntryResults.get(i).toString().equals(nutritionList.get(i).toString())) {
-					status = HttpStatus.BAD_REQUEST;
-					break;
+			if (nutritionList.size() != nutritionEntryResults.size()) {
+				status = HttpStatus.PARTIAL_CONTENT;
+			}
+			else {
+				for (int i = 0; i < nutritionEntryResults.size(); i++) {
+					if (!nutritionEntryResults.get(i).toString().equals(nutritionList.get(i).toString())) {
+						status = HttpStatus.BAD_REQUEST;
+						break;
+					}
 				}
 			}
 		}
@@ -105,7 +110,7 @@ public class NutritionController {
 	@DeleteMapping("/nutritions")
 	public ResponseEntity<List<Nutrition>> deleteNutrition(@RequestParam(value="id", required=false) 
 	List<Integer> nutritionIdList) {
-		List<Nutrition> nutritionEntryResults;
+		List<Nutrition> nutritionEntryResults = null;
 		HttpStatus status = HttpStatus.OK;
 		
 		//CASE: Request Parameter has a list of integers
@@ -118,11 +123,16 @@ public class NutritionController {
 				status = HttpStatus.NO_CONTENT;
 			}
 			//VALIDATE: Check to see if ALL entries were deleted, change status to CONFLICT if not all were deleted
-			else {	
-				for (int i = 0; i < nutritionIdList.size(); i++) {
-					if (nutritionIdList.get(i) != nutritionEntryResults.get(i).getNutritionID()) {
-						status = HttpStatus.CONFLICT;
-						break;
+			else {
+				if (nutritionIdList.size() != nutritionEntryResults.size()) {
+					status = HttpStatus.PARTIAL_CONTENT;
+				}
+				else {
+					for (int i = 0; i < nutritionIdList.size(); i++) {
+						if (nutritionIdList.get(i) != nutritionEntryResults.get(i).getNutritionID()) {
+							status = HttpStatus.CONFLICT;
+							break;
+						}
 					}
 				}
 			}
@@ -133,7 +143,6 @@ public class NutritionController {
 			//VALIDATE: Check if all entries of nutrition were deleted, change status to CONFLICT otherwise.
 			if (!nutritionService.deleteAllNutritionEntries())
 				status = HttpStatus.CONFLICT;
-			nutritionEntryResults = null;
 		}
 		
 		return ResponseEntity.status(status).body(nutritionEntryResults);
