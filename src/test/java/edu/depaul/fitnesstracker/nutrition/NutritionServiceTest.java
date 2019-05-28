@@ -92,8 +92,7 @@ public class NutritionServiceTest {
 	public void getNutritionEntries_WithMoreThanOneIdInParameters_GetNutritionEntry() {
 		boolean assertValue = true;
 		int indexOfTestNutritionEntry = 0;
-		List<Integer> nutritionIdList = new ArrayList<Integer>(
-				Arrays.asList(
+		List<Integer> nutritionIdList = new ArrayList<Integer>(Arrays.asList(
 						dummyNutritionList.get(0).getNutritionID(),
 						dummyNutritionList.get(2).getNutritionID()
 						));
@@ -101,7 +100,7 @@ public class NutritionServiceTest {
 		testNutritionList = testNutritionService.getNutritionEntries(nutritionIdList);
 		
 		for (int i = 0; i < testNutritionList.size(); i++) {
-			//PROBLEM: Only works if index = NutritionId -1
+			//PROBLEM: Only works if index = NutritionId - 1
 			indexOfTestNutritionEntry = (testNutritionList.get(i).getNutritionID() - 1);
 			
 			if(!dummyNutritionList.get(indexOfTestNutritionEntry).toString().equals(testNutritionList.get(i).toString())) {
@@ -118,7 +117,7 @@ public class NutritionServiceTest {
 		
 		testNutritionList = testNutritionService.getNutritionEntries(nutritionIdList);
 		
-		assertTrue("ERROR:Retrieved entry list with non-null entry",testNutritionList.get(0) == null);
+		assertTrue("ERROR:Retrieved entry list with non-null entry",testNutritionList.isEmpty());
 	}
 	
 	@Test
@@ -126,12 +125,7 @@ public class NutritionServiceTest {
 		List<Nutrition> additionNutritionList = new ArrayList<Nutrition>(Arrays.asList(
 				new Nutrition(4, "Test Nutrition Entry 4", 44,44,44,4)));
 		
-		List<Integer> nutritionIdList = new ArrayList<Integer>(Arrays.asList(4));
-		
-		testNutritionService.addNutritionEntries(additionNutritionList);
-		
-		testNutritionList = testNutritionService.getNutritionEntries(nutritionIdList);
-		
+		testNutritionList = testNutritionService.addNutritionEntries(additionNutritionList);
 		
 		assertEquals(testNutritionList.get(0).toString(), additionNutritionList.get(0).toString());
 	}
@@ -144,11 +138,7 @@ public class NutritionServiceTest {
 				new Nutrition(5, "Test Nutrition Entry 5", 55,55,55,55)
 				));
 		
-		List<Integer> nutritionIdList = new ArrayList<Integer>(Arrays.asList(4,5));
-		
-		testNutritionService.addNutritionEntries(additionNutritionList);
-		
-		testNutritionList = testNutritionService.getNutritionEntries(nutritionIdList);
+		testNutritionList = testNutritionService.addNutritionEntries(additionNutritionList);
 		
 		for (int i = 0; i < testNutritionList.size(); i++) {
 			if(!additionNutritionList.get(i).toString().equals(testNutritionList.get(i).toString())) {
@@ -164,32 +154,7 @@ public class NutritionServiceTest {
 		List<Nutrition> additionNutritionList = new ArrayList<Nutrition>(Arrays.asList(
 				new Nutrition(1, "Test Nutrition Entry 1 UPDATED", 11,11,11,11)));
 		
-		List<Integer> nutritionIdList = new ArrayList<Integer>(Arrays.asList(1));
-		
-		testNutritionService.addNutritionEntries(additionNutritionList);
-		
-		testNutritionList = testNutritionService.getNutritionEntries(nutritionIdList);
-		
-		for (int i = 0; i < testNutritionList.size(); i++) {
-			if(!additionNutritionList.get(i).toString().equals(testNutritionList.get(i).toString())) {
-				assertValue = false;
-			}
-		}
-		assertTrue(assertValue);
-	}
-	@Test
-	public void updateNutritionEntries_UpdatingMoreThanOneNutritionEntry_UpdateNutritionEntries() {
-		boolean assertValue = true;
-		List<Nutrition> additionNutritionList = new ArrayList<Nutrition>(Arrays.asList(
-				new Nutrition(1, "Test Nutrition Entry 1 UPDATED", 11,11,11,11),
-				new Nutrition(3, "Test Nutrition Entry 3 UPDATED", 33,33,33,33)				
-				));
-		
-		List<Integer> nutritionIdList = new ArrayList<Integer>(Arrays.asList(1,3));
-		
-		testNutritionService.addNutritionEntries(additionNutritionList);
-		
-		testNutritionList = testNutritionService.getNutritionEntries(nutritionIdList);
+		testNutritionList = testNutritionService.updateNutritionEntries(additionNutritionList);
 		
 		for (int i = 0; i < testNutritionList.size(); i++) {
 			if(!additionNutritionList.get(i).toString().equals(testNutritionList.get(i).toString())) {
@@ -200,14 +165,40 @@ public class NutritionServiceTest {
 	}
 	
 	@Test
+	public void updateNutritionEntries_UpdatingMoreThanOneNutritionEntry_UpdateNutritionEntries() {
+		boolean assertValue = true;
+		List<Nutrition> additionNutritionList = new ArrayList<Nutrition>(Arrays.asList(
+				new Nutrition(1, "Test Nutrition Entry 1 UPDATED", 11,11,11,11),
+				new Nutrition(3, "Test Nutrition Entry 3 UPDATED", 33,33,33,33)				
+				));
+		
+		testNutritionList = testNutritionService.updateNutritionEntries(additionNutritionList);
+		
+		for (int i = 0; i < testNutritionList.size(); i++) {
+			if(!additionNutritionList.get(i).toString().equals(testNutritionList.get(i).toString())) {
+				assertValue = false;
+			}
+		}
+		assertTrue(assertValue);
+	}
+	
+	@Test
+	public void updateNutritionEntries_UpdatingNoneExistsingNutritionEntry_EmptyList() {
+		List<Nutrition> additionNutritionList = new ArrayList<Nutrition>(Arrays.asList(
+				new Nutrition(4, "Test Nutrition Entry 4 UPDATED", 44,44,44,44)));
+		
+		testNutritionList = testNutritionService.updateNutritionEntries(additionNutritionList);
+		
+		assertTrue(testNutritionList.isEmpty());
+	}	
+	
+	@Test
 	public void deleteNutritionEntries_DeleteOneNutritionEntry_DeleteNutritionEntry() {
 		List<Integer> nutritionIdList = new ArrayList<Integer>(Arrays.asList(1));
 		
-		testNutritionService.deleteNutritionEntries(nutritionIdList);
+		testNutritionList = testNutritionService.deleteNutritionEntries(nutritionIdList);
 		
-		testNutritionList = testNutritionService.getNutritionEntries(nutritionIdList);
-		
-		assertTrue("ERROR:Retrieved entry list with non-null entry",testNutritionList.get(0) == null);
+		assertEquals(testNutritionList.get(0).toString(),dummyNutritionList.get(0).toString());
 	}
 	
 	@Test
@@ -223,19 +214,11 @@ public class NutritionServiceTest {
 	
 	@Test
 	public void deleteNutritionEntries_DeleteNutritionEntryThatDoesntExist_DeleteNothing() {
-		boolean assertValue = true;
 		List<Integer> nutritionIdList = new ArrayList<Integer>(Arrays.asList(4));
-		
-		testNutritionService.deleteNutritionEntries(nutritionIdList);
-		
-		testNutritionList = testNutritionService.getAllNutritionEntries();
-		
-		for (int i = 0; i < testNutritionList.size(); i++) {
-			if(!dummyNutritionList.get(i).toString().equals(testNutritionList.get(i).toString())) {
-				assertValue = false;
-			}
-		}
-		assertTrue(assertValue);
+			
+		testNutritionList = testNutritionService.deleteNutritionEntries(nutritionIdList);
+
+		assertTrue(testNutritionList.isEmpty());
 	}
 	
 	@Test
