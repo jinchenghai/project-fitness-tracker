@@ -20,7 +20,7 @@ public class NutritionController {
 	private NutritionService nutritionService;
 	
 	@GetMapping("/nutritions")
-	public ResponseEntity<List<Nutrition>> getAllNutritionEntries(@RequestParam(value="id", required=false)
+	public ResponseEntity<List<Nutrition>> getNutrition(@RequestParam(value="id", required=false)
 	List<Integer> nutritionIdList) {	
 		List<Nutrition> nutritionEntryResults;
 		HttpStatus status = HttpStatus.OK;
@@ -47,7 +47,7 @@ public class NutritionController {
 	}
 	
 	@PutMapping("/nutritions")
-	public ResponseEntity<List<Nutrition>> addNutritionEntries(@RequestBody List<Nutrition> nutritionList) {
+	public ResponseEntity<List<Nutrition>> putNutrition(@RequestBody List<Nutrition> nutritionList) {
 		List<Nutrition> nutritionEntryResults;
 		HttpStatus status = HttpStatus.OK;
 		
@@ -74,7 +74,7 @@ public class NutritionController {
 	}
 	
 	@PostMapping("/nutritions")
-	public ResponseEntity<List<Nutrition>> updateNutrition(@RequestBody List<Nutrition> nutritionList) {
+	public ResponseEntity<List<Nutrition>> postNutrition(@RequestBody List<Nutrition> nutritionList) {
 		List<Nutrition> nutritionEntryResults;
 		HttpStatus status = HttpStatus.OK;
 		
